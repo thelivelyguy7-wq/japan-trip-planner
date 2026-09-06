@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Aetheris Travel - Planner</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    
+    <!-- Google Fonts & Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+    
+    <!-- Tailwind Config from Stitch -->
+    <script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-fixed": "#acedff",
+                      "outline-variant": "#45474b",
+                      "on-surface-variant": "#c6c6cb",
+                      "on-error-container": "#ffdad6",
+                      "background": "#051424",
+                      "on-primary-fixed": "#1a1c20",
+                      "on-tertiary-container": "#00869d",
+                      "secondary": "#d0bcff",
+                      "on-primary": "#2f3035",
+                      "surface-bright": "#2c3a4c",
+                      "surface-container": "#122131",
+                      "on-tertiary-fixed-variant": "#004e5c",
+                      "on-primary-fixed-variant": "#45474b",
+                      "surface-tint": "#c6c6cc",
+                      "surface-container-low": "#0d1c2d",
+                      "inverse-primary": "#5d5e63",
+                      "inverse-on-surface": "#233143",
+                      "inverse-surface": "#d4e4fa",
+                      "primary-container": "#0a0c10",
+                      "primary-fixed-dim": "#c6c6cc",
+                      "error-container": "#93000a",
+                      "error": "#ffb4ab",
+                      "on-surface": "#d4e4fa",
+                      "surface-container-highest": "#273647",
+                      "on-primary-container": "#797a7f",
+                      "surface-container-lowest": "#010f1f",
+                      "on-tertiary": "#003640",
+                      "primary-fixed": "#e2e2e8",
+                      "primary": "#c6c6cc",
+                      "on-secondary-fixed": "#23005c",
+                      "tertiary": "#4cd7f6",
+                      "surface": "#051424",
+                      "secondary-fixed-dim": "#d0bcff",
+                      "tertiary-container": "#000e12",
+                      "tertiary-fixed-dim": "#4cd7f6",
+                      "secondary-container": "#571bc1",
+                      "on-error": "#690005",
+                      "surface-container-high": "#1c2b3c",
+                      "on-secondary-fixed-variant": "#5516be",
+                      "on-tertiary-fixed": "#001f26",
+                      "secondary-fixed": "#e9ddff",
+                      "on-background": "#d4e4fa",
+                      "surface-variant": "#273647",
+                      "outline": "#909095",
+                      "on-secondary-container": "#c4abff",
+                      "surface-dim": "#051424",
+                      "on-secondary": "#3c0091"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-mobile": "16px",
+                      "unit": "4px",
+                      "gutter": "24px",
+                      "container-max": "1280px",
+                      "margin-desktop": "40px"
+              },
+              "fontFamily": {
+                      "display-lg-mobile": ["Outfit"],
+                      "title-lg": ["Outfit"],
+                      "headline-md-mobile": ["Outfit"],
+                      "headline-md": ["Outfit"],
+                      "label-sm": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "display-lg": ["Outfit"],
+                      "body-md": ["Inter"]
+              },
+              "fontSize": {
+                      "display-lg-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                      "title-lg": ["20px", { "lineHeight": "28px", "fontWeight": "500" }],
+                      "headline-md-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                      "headline-md": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                      "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                      "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                      "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                      "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+              }
+            }
+          }
+        }
+    </script>
+    
+    <style>
+        body {
+            background-color: #0A0C10; 
+            color: #d4e4fa; 
+        }
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .glow-pulse {
+            animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% {
+                box-shadow: 0 0 15px rgba(208, 188, 255, 0.2);
+            }
+            50% {
+                box-shadow: 0 0 30px rgba(208, 188, 255, 0.5);
+            }
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #d0bcff 0%, #4cd7f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .dag-path {
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+            animation: dash 3s linear infinite;
+        }
+
+        @keyframes dash {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+        
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Glass card top-highlight: simulates light hitting the edge of the pane */
+        .glass-panel-top-highlight {
+            position: relative;
+        }
+        .glass-panel-top-highlight::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 24px;
+            right: 24px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            pointer-events: none;
+        }
+
+        /* Vertical connector line running through the day-by-day itinerary timeline */
+        .progress-line {
+            width: 2px;
+            background: linear-gradient(to bottom, rgba(76, 215, 246, 0.5), rgba(208, 188, 255, 0.15));
+        }
+
+        /* Soft ambient glow for the currently relevant/active itinerary card */
+        .glow-active {
+            box-shadow: 0 0 0 1px rgba(76, 215, 246, 0.15), 0 8px 30px rgba(0, 0, 0, 0.35);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes shimmer {
+            100% { transform: translateX(200%); }
+        }
+
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateY(-8px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .toast-in {
+            animation: toastIn 0.25s ease-out;
+        }
+    </style>
+
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    
+    <!-- Babel for compiling JSX in the browser -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body class="bg-background text-on-background min-h-screen font-body-md selection:bg-secondary-container selection:text-on-secondary-container flex flex-col md:flex-row">
+    <!-- Abstract Background Elements -->
+    <div class="fixed inset-0 pointer-events-none z-0 opacity-40">
+        <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-secondary-container/20 blur-[100px]"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-tertiary-fixed-dim/10 blur-[120px]"></div>
+    </div>
+
+    <!-- React Root -->
+    <div id="root" class="relative z-10 w-full flex flex-col md:flex-row"></div>
+
+    <script type="text/babel" data-type="module" src="app.jsx"></script>
+</body>
+</html>

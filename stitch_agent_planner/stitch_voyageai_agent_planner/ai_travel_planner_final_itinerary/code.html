@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Aetheris Travel - Optimized Itinerary</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed": "#acedff",
+                        "outline-variant": "#45474b",
+                        "on-surface-variant": "#c6c6cb",
+                        "on-error-container": "#ffdad6",
+                        "background": "#051424",
+                        "on-primary-fixed": "#1a1c20",
+                        "on-tertiary-container": "#00869d",
+                        "secondary": "#d0bcff",
+                        "on-primary": "#2f3035",
+                        "surface-bright": "#2c3a4c",
+                        "surface-container": "#122131",
+                        "on-tertiary-fixed-variant": "#004e5c",
+                        "on-primary-fixed-variant": "#45474b",
+                        "surface-tint": "#c6c6cc",
+                        "surface-container-low": "#0d1c2d",
+                        "inverse-primary": "#5d5e63",
+                        "inverse-on-surface": "#233143",
+                        "inverse-surface": "#d4e4fa",
+                        "primary-container": "#0a0c10",
+                        "primary-fixed-dim": "#c6c6cc",
+                        "error-container": "#93000a",
+                        "error": "#ffb4ab",
+                        "on-surface": "#d4e4fa",
+                        "surface-container-highest": "#273647",
+                        "on-primary-container": "#797a7f",
+                        "surface-container-lowest": "#010f1f",
+                        "on-tertiary": "#003640",
+                        "primary-fixed": "#e2e2e8",
+                        "primary": "#c6c6cc",
+                        "on-secondary-fixed": "#23005c",
+                        "tertiary": "#4cd7f6",
+                        "surface": "#051424",
+                        "secondary-fixed-dim": "#d0bcff",
+                        "tertiary-container": "#000e12",
+                        "tertiary-fixed-dim": "#4cd7f6",
+                        "secondary-container": "#571bc1",
+                        "on-error": "#690005",
+                        "surface-container-high": "#1c2b3c",
+                        "on-secondary-fixed-variant": "#5516be",
+                        "on-tertiary-fixed": "#001f26",
+                        "secondary-fixed": "#e9ddff",
+                        "on-background": "#d4e4fa",
+                        "surface-variant": "#273647",
+                        "outline": "#909095",
+                        "on-secondary-container": "#c4abff",
+                        "surface-dim": "#051424",
+                        "on-secondary": "#3c0091"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "unit": "4px",
+                        "gutter": "24px",
+                        "container-max": "1280px",
+                        "margin-desktop": "40px"
+                    },
+                    "fontFamily": {
+                        "display-lg-mobile": ["Outfit"],
+                        "title-lg": ["Outfit"],
+                        "headline-md-mobile": ["Outfit"],
+                        "headline-md": ["Outfit"],
+                        "label-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "display-lg": ["Outfit"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "display-lg-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "title-lg": ["20px", { "lineHeight": "28px", "fontWeight": "500" }],
+                        "headline-md-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-md": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #0A0C10; /* Base background from style guidance */
+            color: #d4e4fa; /* on-background */
+        }
+        .glass-panel {
+            background-color: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glass-panel-top-highlight {
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .progress-line {
+            width: 2px;
+            background: linear-gradient(to bottom, #4cd7f6 0%, rgba(76, 215, 246, 0.1) 100%);
+        }
+        
+        .glow-active {
+            box-shadow: inset 0 0 15px rgba(208, 188, 255, 0.15);
+            border-color: rgba(208, 188, 255, 0.3);
+        }
+    </style>
+</head>
+<body class="min-h-screen font-body-md text-body-md relative overflow-x-hidden selection:bg-tertiary/30 selection:text-white">
+<!-- Abstract Background Elements -->
+<div class="fixed inset-0 pointer-events-none z-0 opacity-40">
+<div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-secondary-container/20 blur-[100px]"></div>
+<div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-tertiary-fixed-dim/10 blur-[120px]"></div>
+</div>
+<!-- TopNavBar -->
+<header class="fixed top-0 flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 z-50 bg-surface/60 backdrop-blur-xl border-b border-white/10 docked full-width">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary text-3xl">travel_explore</span>
+<span class="font-display-lg-mobile text-display-lg-mobile font-bold text-primary md:font-display-lg md:text-display-lg">Aetheris Travel</span>
+</div>
+<!-- Desktop Nav Cluster -->
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-on-surface-variant hover:text-tertiary transition-colors scale-95 duration-200" href="#">Exploration</a>
+<a class="text-primary font-bold hover:text-tertiary transition-colors scale-95 duration-200" href="#">Itineraries</a>
+<a class="text-on-surface-variant hover:text-tertiary transition-colors scale-95 duration-200" href="#">Agents</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="text-primary hover:text-tertiary transition-colors scale-95 duration-200">
+<span class="material-symbols-outlined text-2xl">account_circle</span>
+</button>
+<button class="text-primary hover:text-tertiary transition-colors scale-95 duration-200">
+<span class="material-symbols-outlined text-2xl">notifications</span>
+</button>
+</div>
+</header>
+<!-- SideNavBar (Hidden on Mobile) -->
+<aside class="hidden md:flex flex-col h-screen w-64 fixed left-0 py-8 bg-surface-container-low/80 backdrop-blur-2xl border-r border-white/10 shadow-2xl z-40 mt-[80px]">
+<div class="px-6 mb-8 flex flex-col items-start gap-4">
+<div class="w-16 h-16 rounded-full overflow-hidden border-2 border-secondary/30 relative">
+<img class="w-full h-full object-cover" data-alt="A highly detailed close-up of a futuristic astronaut helmet visor reflecting neon city lights in a dark cyberpunk environment. Professional lighting, 8k resolution, photorealistic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCALhfAtuctmVnvZqLJefJGnMhxfE7vjZC64Tagnt9AO1eoSke-GZAnXnJ33mIxTTFazNmGrZrgJ-Y2RWkMW3aGXobYXqJu6m6hlxRoM-KTg2T90BIOqfOOtduj_cp94VvnnHycXG9lHKpnqrlwGOgF4FqejmjooI_ntb_onflUwxs-K9cI175TUv922CNb0lhAdZAz4wJLFMPMtwjvyLDy_r-u1Iu55JhWwgK3VqxcxALX92yEY-k"/>
+<div class="absolute bottom-0 right-0 w-4 h-4 bg-tertiary rounded-full border-2 border-surface-container-low blur-[2px]"></div>
+</div>
+<div>
+<h3 class="font-title-lg text-title-lg text-primary">Commander</h3>
+<p class="font-label-sm text-label-sm text-tertiary">Voyage Status: Active</p>
+</div>
+<button class="w-full mt-4 bg-secondary-container hover:bg-secondary-container/80 text-white font-label-sm text-label-sm py-2 px-4 rounded-lg transition-colors border border-secondary/50">
+                New Mission
+            </button>
+</div>
+<nav class="flex-1 px-4 space-y-2">
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-variant/40 transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined">rocket_launch</span>
+<span>Exploration</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-primary border-l-4 border-secondary bg-secondary-container/20 transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined">map</span>
+<span>Itineraries</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-variant/40 transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined">smart_toy</span>
+<span>Agents</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-variant/40 transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<div class="px-4 mt-auto space-y-2">
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-variant/40 transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined">help</span>
+<span>Support</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-lg text-error hover:bg-error/10 transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span>Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="relative z-10 pt-28 pb-32 md:pb-12 px-margin-mobile md:pl-[300px] md:pr-margin-desktop max-w-container-max mx-auto min-h-screen flex flex-col gap-8">
+<!-- Header Section -->
+<div class="flex flex-col gap-2">
+<h1 class="font-headline-md-mobile text-headline-md-mobile md:font-headline-md md:text-headline-md text-primary">Mission Briefing Ready</h1>
+<p class="text-on-surface-variant text-body-lg">Neural agents have finalized your trajectory.</p>
+</div>
+<!-- Trip Summary Card -->
+<section class="glass-panel glass-panel-top-highlight rounded-xl p-6 md:p-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative overflow-hidden">
+<!-- Decorative gradient in background -->
+<div class="absolute top-0 right-0 w-64 h-64 bg-secondary/10 rounded-full blur-[80px] pointer-events-none"></div>
+<div class="flex-1 z-10">
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-tertiary">location_on</span>
+<h2 class="font-headline-md-mobile text-headline-md-mobile text-primary">5 Days in Japan: Tokyo &amp; Kyoto</h2>
+</div>
+<div class="flex flex-wrap gap-4 mt-4">
+<div class="flex items-center gap-2 bg-surface-container-high px-3 py-1.5 rounded-full border border-white/5">
+<span class="material-symbols-outlined text-sm text-on-surface-variant">payments</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Total Est: $3,200 USD</span>
+</div>
+<div class="flex items-center gap-2 bg-secondary-container/30 px-3 py-1.5 rounded-full border border-secondary/30">
+<span class="w-2 h-2 rounded-full bg-secondary shadow-[0_0_8px_rgba(208,188,255,0.8)]"></span>
+<span class="font-label-sm text-label-sm text-secondary">Status: Optimized</span>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-high px-3 py-1.5 rounded-full border border-white/5">
+<span class="material-symbols-outlined text-sm text-on-surface-variant">group</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">2 Travelers</span>
+</div>
+</div>
+</div>
+<div class="z-10 flex flex-col gap-3 w-full md:w-auto">
+<button class="w-full md:w-auto bg-gradient-to-r from-secondary-container to-secondary-fixed-dim hover:from-secondary hover:to-secondary-fixed text-on-secondary font-label-sm text-label-sm py-3 px-6 rounded-lg transition-all shadow-[0_0_15px_rgba(87,27,193,0.3)] hover:shadow-[0_0_20px_rgba(87,27,193,0.5)]">
+                    Approve Itinerary
+                </button>
+<button class="w-full md:w-auto bg-transparent hover:bg-white/5 text-primary border border-white/10 font-label-sm text-label-sm py-3 px-6 rounded-lg transition-colors">
+                    Request Revisions
+                </button>
+</div>
+</section>
+<!-- QA / Reviewer Note Banner -->
+<section class="glass-panel border-l-4 border-l-error bg-error-container/10 rounded-r-xl p-4 flex items-start gap-4">
+<span class="material-symbols-outlined text-error mt-0.5" style="font-variation-settings: 'FILL' 1;">warning</span>
+<div>
+<h4 class="font-title-lg text-title-lg text-error mb-1">AI Reviewer Note</h4>
+<p class="text-on-surface-variant text-body-md">Logistics adjusted to avoid heavy crowds in Kyoto on Day 3. Suggested early morning start for Fushimi Inari. Transit times have been recalibrated based on real-time rail data.</p>
+</div>
+</section>
+<!-- Day-by-Day Timeline -->
+<div class="relative pl-6 md:pl-8 mt-4">
+<!-- Timeline Line -->
+<div class="absolute left-[11px] md:left-[15px] top-4 bottom-0 progress-line z-0"></div>
+<div class="space-y-12">
+<!-- Day 1 -->
+<div class="relative z-10">
+<!-- Timeline Node -->
+<div class="absolute left-[-29px] md:left-[-33px] top-5 w-4 h-4 rounded-full bg-surface border-2 border-tertiary shadow-[0_0_10px_rgba(76,215,246,0.5)]"></div>
+<div class="flex flex-col gap-2 mb-4 pl-4">
+<span class="font-label-sm text-label-sm text-tertiary tracking-widest uppercase">Day 01</span>
+<h3 class="font-title-lg text-title-lg text-primary">Arrival in Neo-Tokyo</h3>
+</div>
+<div class="glass-panel glass-panel-top-highlight rounded-xl p-5 md:p-6 ml-4 relative glow-active">
+<div class="absolute top-4 right-4 flex items-center gap-1.5 bg-secondary-container/20 px-2 py-1 rounded border border-secondary/20">
+<span class="material-symbols-outlined text-[14px] text-secondary">verified</span>
+<span class="text-[10px] uppercase font-bold text-secondary tracking-wider">Agent Verified</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="md:col-span-2 space-y-4">
+<p class="text-on-surface-variant text-body-md leading-relaxed">Touch down in the shimmering expanse of Tokyo. Your logistics agent has pre-booked a luxury suite in the heart of Shinjuku, placing you amidst a forest of neon and steel. The evening focuses on acclimation—a guided sensory dive into a synthwave-inspired omakase dinner, followed by a curated rooftop viewing platform to observe the city's luminous grid.</p>
+<div class="flex gap-2">
+<span class="px-2 py-1 bg-surface-container rounded text-xs text-on-surface-variant border border-white/5 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">flight_land</span> Haneda Intl</span>
+<span class="px-2 py-1 bg-surface-container rounded text-xs text-on-surface-variant border border-white/5 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">bed</span> Shinjuku Luxury Stay</span>
+</div>
+</div>
+<div class="h-32 md:h-auto rounded-lg overflow-hidden border border-white/10 relative">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10"></div>
+<img class="w-full h-full object-cover" data-alt="A futuristic, hyper-realistic shot of Shinjuku Tokyo at night in a cyberpunk aesthetic. Towering neon skyscrapers, dense glowing signs in bright cyan and magenta, wet pavement reflecting the vivid lights. High contrast, cinematic lighting, sophisticated futuristic glassmorphic vibe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeUivnDgNH8eaj8W8L7VeQfzgnFrSWR5PaxdHgnFCBLGaW0n3fkxsMnF_fbieUNHQC9tKmoc2qfKJTdUWVb37vk-tWCHNtp8yRjrvCnxB90HgEiXJbYzJ6Z8PMvwZjzPVi-o0R1wMT_Al12_VRfOKYILpJt4nY5VLi_2lXlvVh7XJMqbI4LuBCFi4oNx_eoXHixDODJ6ogI2RHp0Y8Yx182YW3JQNBnHFnzjXHaS7dsdic7usvh6c"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Day 2 -->
+<div class="relative z-10">
+<div class="absolute left-[-29px] md:left-[-33px] top-5 w-4 h-4 rounded-full bg-surface border-2 border-outline-variant"></div>
+<div class="flex flex-col gap-2 mb-4 pl-4">
+<span class="font-label-sm text-label-sm text-outline-variant tracking-widest uppercase">Day 02</span>
+<h3 class="font-title-lg text-title-lg text-primary">Cybernetic Architecture Tour</h3>
+</div>
+<div class="glass-panel glass-panel-top-highlight rounded-xl p-5 md:p-6 ml-4 relative">
+<div class="absolute top-4 right-4 flex items-center gap-1.5 bg-surface-variant px-2 py-1 rounded border border-white/10">
+<span class="material-symbols-outlined text-[14px] text-on-surface-variant">check_circle</span>
+<span class="text-[10px] uppercase font-bold text-on-surface-variant tracking-wider">Verified</span>
+</div>
+<div class="space-y-4">
+<p class="text-on-surface-variant text-body-md leading-relaxed">Begin with an exclusive structural analysis tour of the Nakagin Capsule Tower's remaining preserved modules. Post-lunch, transit protocols shift to the western suburbs for an intricate, timed-entry experience at the Ghibli Museum. Your agent has secured highly restricted access passes, bypassing the standard queues.</p>
+<div class="flex gap-2">
+<span class="px-2 py-1 bg-surface-container rounded text-xs text-on-surface-variant border border-white/5 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">apartment</span> Architecture</span>
+<span class="px-2 py-1 bg-surface-container rounded text-xs text-on-surface-variant border border-white/5 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">subway</span> Chuo Line Transit</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Day 3 -->
+<div class="relative z-10">
+<div class="absolute left-[-29px] md:left-[-33px] top-5 w-4 h-4 rounded-full bg-surface border-2 border-outline-variant"></div>
+<div class="flex flex-col gap-2 mb-4 pl-4">
+<span class="font-label-sm text-label-sm text-outline-variant tracking-widest uppercase">Day 03</span>
+<h3 class="font-title-lg text-title-lg text-primary">Bullet Train to Kyoto</h3>
+</div>
+<div class="glass-panel glass-panel-top-highlight rounded-xl p-5 md:p-6 ml-4 relative">
+<!-- Flagged based on QA note -->
+<div class="absolute top-4 right-4 flex items-center gap-1.5 bg-error-container/20 px-2 py-1 rounded border border-error/30">
+<span class="material-symbols-outlined text-[14px] text-error">update</span>
+<span class="text-[10px] uppercase font-bold text-error tracking-wider">Optimized Timing</span>
+</div>
+<div class="space-y-4">
+<p class="text-on-surface-variant text-body-md leading-relaxed">Board the Shinkansen for high-speed transit southwest. Logistics have been recalibrated for a 0600 departure to outpace tourist congestion. Arrive in Kyoto and immediately deploy to Fushimi Inari for optimal photographic conditions before crowd density peaks. The evening features a curated, low-profile walk through the Gion district.</p>
+<div class="flex gap-2">
+<span class="px-2 py-1 bg-surface-container rounded text-xs text-on-surface-variant border border-white/5 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">train</span> Shinkansen Pass</span>
+<span class="px-2 py-1 bg-surface-container rounded text-xs text-on-surface-variant border border-white/5 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">directions_walk</span> Gion Night Walk</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-4 pt-2 md:hidden bg-surface-container-lowest/60 backdrop-blur-lg border-t border-white/10 shadow-lg rounded-t-xl">
+<button class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:text-tertiary active:scale-90 transition-transform">
+<span class="material-symbols-outlined mb-1">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-secondary bg-secondary-container/30 rounded-xl p-2 hover:text-tertiary active:scale-90 transition-transform">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">travel_explore</span>
+<span class="font-label-sm text-label-sm">Trips</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:text-tertiary active:scale-90 transition-transform">
+<span class="material-symbols-outlined mb-1">memory</span>
+<span class="font-label-sm text-label-sm">Agents</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:text-tertiary active:scale-90 transition-transform">
+<span class="material-symbols-outlined mb-1">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</button>
+</nav>
+</body></html>
