@@ -149,5 +149,8 @@ async def transcribe_audio(audio: UploadFile = File(...)):
         raise HTTPException(status_code=500, detail=str(e))
 
 # Mount static files at the root
-os.makedirs("static", exist_ok=True)
+try:
+    os.makedirs("static", exist_ok=True)
+except OSError:
+    pass # Vercel has read-only filesystem, static dir should already be present from git
 app.mount("/", StaticFiles(directory="static", html=True), name="static")
