@@ -7,8 +7,16 @@
   ],
   "routes": [
     {
-      "src": "/(.*)",
+      "src": "/(plan-trip|stream-plan|health|transcribe)",
       "dest": "main.py"
+    },
+    {
+      "src": "/",
+      "dest": "/static/index.html"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/static/$1"
     }
   ]
 }
