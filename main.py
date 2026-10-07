@@ -148,10 +148,10 @@ async def transcribe_audio(audio: UploadFile = File(...)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-if not os.environ.get("VERCEL"):
-    try:
-        os.makedirs("static", exist_ok=True)
-    except OSError:
-        pass
-    if os.path.isdir("static"):
-        app.mount("/", StaticFiles(directory="static", html=True), name="static")
+static_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "static")
+try:
+    os.makedirs(static_dir, exist_ok=True)
+except OSError:
+    pass
+if os.path.isdir(static_dir):
+    app.mount("/", StaticFiles(directory=static_dir, html=True), name="static")
